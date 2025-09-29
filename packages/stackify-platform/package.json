@@ -1,0 +1,21 @@
+{
+  "name": "@stackify/platform",
+  "private": true,
+  "scripts": {
+    "build": "nitro build",
+    "dev": "nitro dev"
+  },
+  "devDependencies": {
+    "@types/dockerode": "^3.3.44",
+    "@types/tar-stream": "^3.1.4",
+    "@types/unzipper": "^0.10.11",
+    "h3": "^1.15.4",
+    "nitropack": "^2.12.4",
+    "@stackify/core": "workspace:*"
+  },
+  "dependencies": {
+    "dockerode": "^4.0.8",
+    "tar-stream": "^3.1.7",
+    "unzipper": "^0.12.3"
+  }
+}
