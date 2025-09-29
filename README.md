@@ -1,49 +1,53 @@
 
-# Stackify
+# Stackify Monorepo
 
-Stackify is a library designed to streamline the deployment of modern web applications (Next.js, Vite, Nuxt, Vue, React, and more) to the cloud with minimal configuration.
+Stackify is a toolkit for deploying and managing modern web applications (Next.js, Vite, Nuxt, Vue, React, and more) to the cloud with minimal configuration.
 
-## Prerequisites
+## Packages
 
-- Node.js v20 or higher
+- [`packages/stackify-cli`](./packages/stackify-cli): Command-line tool for deployment and service management. See its [README](./packages/stackify-cli/README.md) for usage and details.
+- [`packages/stackify-core`](./packages/stackify-core): Core library for Stackify configuration and integration.
+- [`packages/stackify-platform`](./packages/stackify-platform): Platform utilities and server-side integrations.
 
-## Installation
+## Quick Start
 
-```bash
-npm install -g @stacklify/cli
-```
+1. **Install the CLI globally:**
+  ```bash
+  npm install -g @stacklify/cli
+  ```
+2. **Set up your project:**
+  - (If using TypeScript) Install `@stackify/core` in your project:
+    ```bash
+    npm install @stackify/core
+    ```
+  - Create a `stackify.config.ts` file:
+    ```typescript
+    import { defineStackifyConfig } from "@stackify/core";
+    export default defineStackifyConfig({
+     name: "your-app-name",
+    });
+    ```
+3. **Start the Stackify service on your server:**
+  ```bash
+  stackify start
+  # Use --workdir=PATH to specify a working directory.
+  # Use --proxy-port=PORT to configure the proxy port for the application.
+  ```
+4. **Deploy your application:**
+  ```bash
+  stackify deploy
+  ```
+5. **Stop the Stackify service:**
+  ```bash
+  stackify stop
+  ```
 
-## Starting the Stackify Service on Your Server
+## Repository Structure
 
-```bash
-stackify start
-```
+- `packages/stackify-cli/` — CLI tool and deployment logic
+- `packages/stackify-core/` — Core configuration and utilities
+- `packages/stackify-platform/` — Platform/server-side code and Docker example
+- `examples/` — Example projects and configurations
 
-To specify a custom working directory, use the `--workdir=PATH` option.
-
-## Stopping the Stackify Service
-
-```bash
-stackify stop
-```
-
-## Deploying Your Application from Local
-
-If you are using TypeScript, install `@stackify/core`:
-
-Create a `stackify.config.ts` file with the following content:
-
-```typescript
-import { defineStackifyConfig } from "@stackify/core";
-export default defineStackifyConfig({
-  name: "stackify-app-vite-react",
-});
-```
-
-Then deploy your app:
-
-```bash
-stackify deploy
-```
-
-Your application will be deployed to the cloud in just a few minutes.
+## License
+ISC
