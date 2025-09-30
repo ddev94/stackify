@@ -1,7 +1,8 @@
-import { defineStackifyFunction, FunctionHandlerType } from "./function";
-
 export type StackifyConfig = {
   name: string;
+  server: {
+    url: string;
+  };
 };
 
 export function defineStackifyConfig(config: StackifyConfig) {

@@ -51,7 +51,7 @@ export default defineCommand({
     formData.append("config", JSON.stringify(config));
 
     axios
-      .post("http://localhost:3000/api/deploy", formData, {
+      .post(config.server.url + "/api/deploy", formData, {
         headers: formData.getHeaders(),
       })
       .then((res) => {

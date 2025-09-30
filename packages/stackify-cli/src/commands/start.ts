@@ -89,9 +89,13 @@ export default defineCommand({
       name: "stackify-platform",
       Labels: {
         "traefik.enable": "true",
-        "traefik.http.routers.platform.rule": "Host(`platform.localhost`)",
+        "traefik.http.routers.platform.rule": "Host(`localhost`) && PathPrefix(`/platform`)",
         "traefik.http.routers.platform.entrypoints": "web",
+        "traefik.http.services.platform.loadbalancer.server.port": "3000",
       },
+      HostConfig: {
+        Binds: ["/var/run/docker.sock:/var/run/docker.sock:rw"],
+      }
     });
 
     await whoamiContainer.start();
@@ -101,10 +105,16 @@ export default defineCommand({
     // Now you can exec into the container with:
     // docker exec -it stackify-reverse-proxy sh
     // (Note: traefik image may not have bash, but sh should be available)
+    const reserveProxyUrl = `http://localhost:${proxyPort}`;
+    const platformUrl = `http://localhost:${proxyPort}/platform`;
     consola.box(`
-    Endpoint URL: ${chalk.blue(
-      "https://google.com/search?q=platform.localhost"
-    )}
+    Stackify Reverse Proxy is running!
+
+    - Proxy URL: ${chalk.blue(reserveProxyUrl)}
+
+    - You can access the platform at: ${chalk.blue(platformUrl)}
+
+    - To stop the service, run: ${chalk.blue("stackify stop")}
     `);
   },
 });
