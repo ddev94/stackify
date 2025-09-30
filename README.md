@@ -7,7 +7,7 @@ Stackify is a toolkit for deploying and managing modern web applications (Next.j
 
 - [`packages/stackify-cli`](./packages/stackify-cli): Command-line tool for deployment and service management. See its [README](./packages/stackify-cli/README.md) for usage and details.
 - [`packages/stackify-core`](./packages/stackify-core): Core library for Stackify configuration and integration.
-- [`packages/stackify-platform`](./packages/stackify-platform): Platform utilities and server-side integrations.
+- [`packages/stackify-rest`](./packages/stackify-rest): The REST API for Stackify.
 
 ## Quick Start
 
@@ -46,7 +46,7 @@ Stackify is a toolkit for deploying and managing modern web applications (Next.j
 
 - `packages/stackify-cli/` — CLI tool and deployment logic
 - `packages/stackify-core/` — Core configuration and utilities
-- `packages/stackify-platform/` — Platform/server-side code and Docker example
+- `packages/stackify-rest/` — rest/server-side code and Docker example
 - `examples/` — Example projects and configurations
 
 ## License

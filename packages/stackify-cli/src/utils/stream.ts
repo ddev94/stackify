@@ -1,5 +1,5 @@
-import { pack } from "tar-stream";
 import { Writable } from "stream";
+import { pack } from "tar-stream";
 
 type TarStreamFile = {
   name: string;

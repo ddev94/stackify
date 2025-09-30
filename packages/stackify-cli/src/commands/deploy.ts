@@ -1,14 +1,14 @@
-import { defineCommand } from "citty";
-import { createJiti } from "jiti";
-import { StackifyConfig } from "stackify-core";
 import AdmZip from "adm-zip";
-import { join, resolve } from "pathe";
 import axios from "axios";
-import fs from "fs";
-import FormData from "form-data";
-import ora from "ora";
 import chalk from "chalk";
+import { defineCommand } from "citty";
 import { consola } from "consola";
+import FormData from "form-data";
+import fs from "fs";
+import { createJiti } from "jiti";
+import ora from "ora";
+import { join, resolve } from "pathe";
+import { StackifyConfig } from "stackify-core";
 
 export default defineCommand({
   meta: {
@@ -24,8 +24,19 @@ export default defineCommand({
   async run(context) {
     const spinner = ora(chalk.cyan("Deploying stackify service...")).start();
     const workdir = resolve(context.args.workdir || process.cwd());
-    if (!fs.existsSync(join(workdir, "stackify.config.ts"))) {
-      consola.error("No stackify.config.ts found in the working directory.");
+    let stackConfigFileName = "";
+    if (fs.existsSync(join(workdir, "stackify.config.ts"))) {
+      stackConfigFileName = "stackify.config.ts";
+    }
+
+    if (fs.existsSync(join(workdir, "stackify.config.js"))) {
+      stackConfigFileName = "stackify.config.js";
+    }
+
+    if (!stackConfigFileName) {
+      consola.error(
+        "No stackify.config.ts or stackify.config.js found in the working directory."
+      );
       process.exit(1);
     }
 
@@ -33,9 +44,18 @@ export default defineCommand({
       fs.mkdirSync(join(workdir, ".stackify"));
     }
     const jiti = createJiti(workdir, { cache: false });
-    const config = await jiti.import<StackifyConfig>("./stackify.config.ts", {
-      default: true,
-    });
+    const config = await jiti.import<StackifyConfig>(
+      "./" + stackConfigFileName,
+      {
+        default: true,
+      }
+    );
+
+    if (!config.rest?.url) {
+      consola.error("No rest.url found in", stackConfigFileName);
+      spinner.fail("Deployment failed!");
+      process.exit(1);
+    }
 
     const zip = new AdmZip();
     zip.addLocalFolder(join(workdir), undefined, (file) => {
@@ -51,12 +71,14 @@ export default defineCommand({
     formData.append("config", JSON.stringify(config));
 
     axios
-      .post(config.server.url + "/api/deploy", formData, {
+      .post(config.rest?.url + "/api/deploy", formData, {
         headers: formData.getHeaders(),
       })
       .then((res) => {
         if (res.status !== 200) {
-          consola.error("Deployment failed:", res.data);
+          consola.error(res.data);
+          spinner.fail("Deployment failed!");
+          process.exit(1);
         } else {
           spinner.succeed("Deployment successful!");
         }

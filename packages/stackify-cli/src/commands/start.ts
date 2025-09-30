@@ -1,9 +1,9 @@
-import { defineCommand } from "citty";
-import Docker from "dockerode";
-import { BuildOutputStream, createTarStreamFromFiles } from "../utils/stream";
-import { consola } from "consola";
 import chalk from "chalk";
+import { defineCommand } from "citty";
+import { consola } from "consola";
+import Docker from "dockerode";
 import ora from "ora";
+import { BuildOutputStream, createTarStreamFromFiles } from "../utils/stream";
 
 const docker = new Docker({ socketPath: "/var/run/docker.sock" });
 
@@ -87,7 +87,7 @@ export default defineCommand({
     const image = await docker.pull("playlistduong/stackify-rest:v1", {});
     await new Promise((resolve, reject) => {
       docker.modem.followProgress(image, (err, res) =>
-        err ? reject(err) : resolve(res),
+        err ? reject(err) : resolve(res)
       );
     });
 
@@ -96,8 +96,7 @@ export default defineCommand({
       name: "stackify-rest",
       Labels: {
         "traefik.enable": "true",
-        "traefik.http.routers.rest.rule":
-          "PathPrefix(`/rest`)",
+        "traefik.http.routers.rest.rule": "PathPrefix(`/rest`)",
         "traefik.http.routers.rest.entrypoints": "web",
         "traefik.http.services.rest.loadbalancer.server.port": "3000",
       },
@@ -122,7 +121,9 @@ export default defineCommand({
 
     - You can access the REST API at: ${chalk.blue(restUrl)}
 
-    - To stop the service, run: ${chalk.blue("npx stackify-cli stop")} or ${chalk.blue("stackify stop")} if installed globally.
+    - To stop the service, run: ${chalk.blue(
+      "npx stackify-cli stop"
+    )} or ${chalk.blue("stackify stop")} if installed globally.
     `);
   },
 });

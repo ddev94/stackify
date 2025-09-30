@@ -1,7 +1,9 @@
 import { defineStackifyConfig } from "stackify-core";
 export default defineStackifyConfig({
   name: "stackify-app-vite-react",
-  server: {
+  nodeVersion: "20",
+  platform: "vite",
+  rest: {
     url: "http://103.82.27.64/rest",
-  }
+  },
 });

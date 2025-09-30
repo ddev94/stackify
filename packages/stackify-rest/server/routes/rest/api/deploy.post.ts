@@ -1,19 +1,23 @@
-import { createError, defineEventHandler, readMultipartFormData } from "h3";
 import Docker from "dockerode";
+import { createError, defineEventHandler, readMultipartFormData } from "h3";
+import { StackifyConfig } from "stackify-core";
 import unzipper from "unzipper";
 import {
   BuildOutputStream,
   createTarStreamFromFiles,
   TarStreamFile,
 } from "../../../utils/stream";
-import { StackifyConfig } from "stackify-core";
 const docker = new Docker({ socketPath: "/var/run/docker.sock" });
 
 export default defineEventHandler(async (event) => {
   console.log("Received deployment request");
   let config: StackifyConfig | null = {
     name: "stackify-app-vite-react",
-    server: { url: "http://localhost:3000" },
+    rest: {
+      url: "http://localhost:3000",
+    },
+    nodeVersion: "20",
+    platform: "vite",
   };
   const formData = await readMultipartFormData(event);
   if (!formData) {
@@ -26,7 +30,7 @@ export default defineEventHandler(async (event) => {
     {
       name: "Dockerfile",
       content: `
-          FROM node:20-alpine
+          FROM node:${config.nodeVersion}-alpine
           WORKDIR /app
           COPY . .
           RUN npm install
@@ -56,7 +60,7 @@ export default defineEventHandler(async (event) => {
   const stackifyContainers = await docker.listContainers({
     all: true,
     filters: {
-      name: [config.name],
+      name: [config.name || "stackify-app-vite-react"],
     },
   });
 

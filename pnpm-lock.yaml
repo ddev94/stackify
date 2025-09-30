@@ -76,7 +76,7 @@ importers:
         specifier: ^3.6.1
         version: 3.6.1(typescript@5.9.2)
 
-  packages/stackify-platform:
+  packages/stackify-rest:
     dependencies:
       dockerode:
         specifier: ^4.0.8
