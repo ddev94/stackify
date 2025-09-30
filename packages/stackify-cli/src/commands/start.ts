@@ -122,7 +122,7 @@ export default defineCommand({
 
     - You can access the REST API at: ${chalk.blue(restUrl)}
 
-    - To stop the service, run: ${chalk.blue("stackify stop")}
+    - To stop the service, run: ${chalk.blue("npx stackify-cli stop")} or ${chalk.blue("stackify stop")} if installed globally.
     `);
   },
 });
