@@ -1,5 +1,8 @@
 
-# Stackify Monorepo
+# Stackify
+
+[![npm version](https://img.shields.io/npm/v/stackify-cli)](https://npmjs.com/package/stackify-cli)
+[![npm downloads](https://img.shields.io/npm/dm/stackify-cli)](https://npm.chart.dev/stackify-cli)
 
 Stackify is a toolkit for deploying and managing modern web applications (Next.js, Vite, Nuxt, Vue, React, and more) to the cloud with minimal configuration.
 
@@ -11,36 +14,54 @@ Stackify is a toolkit for deploying and managing modern web applications (Next.j
 
 ## Quick Start
 
-1. **Install the CLI globally:**
+**Setup stackify server**
+
   ```bash
-  npm install -g @stacklify/cli
+  npx stackify-cli server start
   ```
-2. **Set up your project:**
-  - (If using TypeScript) Install `stackify-core` in your project:
-    ```bash
-    npm install stackify-core
-    ```
-  - Create a `stackify.config.ts` file:
-    ```typescript
-    import { defineStackifyConfig } from "stackify-core";
-    export default defineStackifyConfig({
-     name: "your-app-name",
-    });
-    ```
-3. **Start the Stackify service on your server:**
-  ```bash
-  stackify start
-  # Use --workdir=PATH to specify a working directory.
-  # Use --proxy-port=PORT to configure the proxy port for the application.
-  ```
-4. **Deploy your application:**
-  ```bash
-  stackify deploy
-  ```
-5. **Stop the Stackify service:**
-  ```bash
-  stackify stop
-  ```
+
+**Set up your project:**
+
+(If using TypeScript) Install `stackify-core` in your project:
+
+```bash
+npm install stackify-core
+```
+
+Create a `stackify.config.ts` or `stackify.config.js` file:
+  
+with javascript
+
+```javascript
+export default {
+  name: 'your-app-name',
+  rest: {
+    url: "http://my-domain/rest"
+  },
+  platform: "vite", // next, nuxt
+}
+```
+
+with typescript
+
+```typescript
+import { defineStackifyConfig } from "stackify-core";
+export default defineStackifyConfig({
+  // stackify config
+});
+```
+
+**Deploy your application:**
+
+```bash
+npx stackify-cli deploy
+```
+
+**Stop the Stackify server:**
+
+```bash
+npx stackify-cli server stop
+```
 
 ## Repository Structure
 

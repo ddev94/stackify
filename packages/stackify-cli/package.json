@@ -1,6 +1,6 @@
 {
   "name": "stackify-cli",
-  "version": "1.0.0-beta.8",
+  "version": "1.0.0-beta.12",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -27,11 +27,12 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "stackify-core": "workspace:*",
     "@types/adm-zip": "^0.5.7",
     "@types/dockerode": "^3.3.44",
     "@types/tar-stream": "^3.1.4",
-    "unbuild": "^3.6.1"
+    "stackify-core": "workspace:*",
+    "unbuild": "^3.6.1",
+    "vite": "^7.1.7"
   },
   "dependencies": {
     "adm-zip": "^0.5.16",
@@ -43,9 +44,10 @@
     "express": "^5.1.0",
     "form-data": "^4.0.4",
     "glob": "^11.0.3",
+    "jiti": "^2.6.0",
     "ora": "^9.0.0",
     "pathe": "^2.0.3",
     "tar-stream": "^3.1.7",
-    "jiti": "^2.6.0"
+    "yaml": "^2.8.1"
   }
 }

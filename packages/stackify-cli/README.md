@@ -1,53 +1,74 @@
-# stackify-cli
 
-A command-line tool for deploying and managing web applications with Stackify.
+# Stackify
 
-## Features
-- Start and stop the Stackify service on your server
-- Deploy your application to the cloud with a single command
-- Supports custom working directories
-- Integrates with stackify-core for TypeScript projects
+[![npm version](https://img.shields.io/npm/v/stackify-cli)](https://npmjs.com/package/stackify-cli)
+[![npm downloads](https://img.shields.io/npm/dm/stackify-cli)](https://npm.chart.dev/stackify-cli)
 
-## Prerequisites
-- Node.js v20 or higher
-- Docker
+Stackify is a toolkit for deploying and managing modern web applications (Next.js, Vite, Nuxt, Vue, React, and more) to the cloud with minimal configuration.
 
-## Installation
+## Packages
+
+- [`packages/stackify-cli`](./packages/stackify-cli): Command-line tool for deployment and service management. See its [README](./packages/stackify-cli/README.md) for usage and details.
+- [`packages/stackify-core`](./packages/stackify-core): Core library for Stackify configuration and integration.
+- [`packages/stackify-rest`](./packages/stackify-rest): The REST API for Stackify.
+
+## Quick Start
+
+**Setup stackify server**
+
+  ```bash
+  npx stackify-cli server start
+  ```
+
+**Set up your project:**
+
+(If using TypeScript) Install `stackify-core` in your project:
+
 ```bash
-npm install -g stackify-cli
+npm install stackify-core
 ```
 
-## Usage
+Create a `stackify.config.ts` or `stackify.config.js` file:
+  
+with javascript
 
-### 1. Start the Stackify Service
-```bash
-stackify start
-```
-- Use `--workdir=PATH` to specify a custom working directory.
-
-### 2. Stop the Stackify Service
-```bash
-stackify stop
-```
-
-### 3. Deploy Your Application
-From your project directory (with a valid `stackify.config.ts`):
-```bash
-stackify deploy
+```javascript
+export default {
+  name: 'your-app-name',
+  rest: {
+    url: "http://my-domain/rest"
+  },
+  platform: "vite", // next, nuxt
+}
 ```
 
-## Example stackify.config.ts
+with typescript
+
 ```typescript
 import { defineStackifyConfig } from "stackify-core";
 export default defineStackifyConfig({
-  name: "your-app-name",
+  // stackify config
 });
 ```
 
-## Project Structure
-- `src/` - CLI source code
-- `bin/` - Entry point for the CLI
-- `examples/` - Example projects and configurations
+**Deploy your application:**
+
+```bash
+npx stackify-cli deploy
+```
+
+**Stop the Stackify server:**
+
+```bash
+npx stackify-cli server stop
+```
+
+## Repository Structure
+
+- `packages/stackify-cli/` — CLI tool and deployment logic
+- `packages/stackify-core/` — Core configuration and utilities
+- `packages/stackify-rest/` — rest/server-side code and Docker example
+- `examples/` — Example projects and configurations
 
 ## License
 ISC

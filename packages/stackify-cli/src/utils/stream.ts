@@ -24,9 +24,9 @@ export class BuildOutputStream extends Writable {
       try {
         const json = JSON.parse(line);
         if (json.stream) {
-          // console.log(json.stream.trim());
+          console.log(json.stream.trim());
         } else if (json.error) {
-          // console.error("Error:", json.error);
+          console.error("Error:", json.error);
         }
       } catch (e) {
         // Ignore non-JSON output

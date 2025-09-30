@@ -1,9 +1,12 @@
 import { defineStackifyConfig } from "stackify-core";
 export default defineStackifyConfig({
-  name: "stackify-app-vite-react",
-  nodeVersion: "20",
+  name: "my-app-y",
+  nodeVersion: "22",
   platform: "vite",
-  rest: {
-    url: "http://103.82.27.64/rest",
+  subDomain: "vite-app-2",
+  // pathPrefix: "/vite",
+  server: {
+    domain: "https://ninety4.tech/",
+    restUrl: "https://ninety4.tech/rest",
   },
 });
