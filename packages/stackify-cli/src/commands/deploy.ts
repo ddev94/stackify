@@ -1,6 +1,6 @@
 import { defineCommand } from "citty";
 import { createJiti } from "jiti";
-import { StackifyConfig } from "@stackify/core";
+import { StackifyConfig } from "stackify-core";
 import AdmZip from "adm-zip";
 import { join, resolve } from "pathe";
 import axios from "axios";
@@ -32,7 +32,7 @@ export default defineCommand({
     if (!fs.existsSync(join(workdir, ".stackify"))) {
       fs.mkdirSync(join(workdir, ".stackify"));
     }
-    const jiti = createJiti(workdir);
+    const jiti = createJiti(workdir, { cache: false });
     const config = await jiti.import<StackifyConfig>("./stackify.config.ts", {
       default: true,
     });

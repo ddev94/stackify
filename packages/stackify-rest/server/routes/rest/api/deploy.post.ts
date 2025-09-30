@@ -6,7 +6,7 @@ import {
   createTarStreamFromFiles,
   TarStreamFile,
 } from "../../../utils/stream";
-import { StackifyConfig } from "@stackify/core";
+import { StackifyConfig } from "stackify-core";
 const docker = new Docker({ socketPath: "/var/run/docker.sock" });
 
 export default defineEventHandler(async (event) => {

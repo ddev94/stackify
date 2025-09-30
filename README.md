@@ -16,13 +16,13 @@ Stackify is a toolkit for deploying and managing modern web applications (Next.j
   npm install -g @stacklify/cli
   ```
 2. **Set up your project:**
-  - (If using TypeScript) Install `@stackify/core` in your project:
+  - (If using TypeScript) Install `stackify-core` in your project:
     ```bash
-    npm install @stackify/core
+    npm install stackify-core
     ```
   - Create a `stackify.config.ts` file:
     ```typescript
-    import { defineStackifyConfig } from "@stackify/core";
+    import { defineStackifyConfig } from "stackify-core";
     export default defineStackifyConfig({
      name: "your-app-name",
     });

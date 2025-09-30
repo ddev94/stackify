@@ -1,7 +1,7 @@
-import { defineStackifyConfig } from "@stackify/core";
+import { defineStackifyConfig } from "stackify-core";
 export default defineStackifyConfig({
   name: "stackify-app-vite-react",
   server: {
-    url: "http://localhost:3333/platform",
+    url: "http://103.82.27.64/rest",
   }
 });

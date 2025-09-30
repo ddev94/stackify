@@ -1,5 +1,6 @@
 {
-  "name": "@stackify/platform",
+  "name": "stackify-rest",
+  "version": "1.0.0-beta.7",
   "private": true,
   "scripts": {
     "build": "nitro build",
@@ -11,7 +12,7 @@
     "@types/unzipper": "^0.10.11",
     "h3": "^1.15.4",
     "nitropack": "^2.12.4",
-    "@stackify/core": "workspace:*"
+    "stackify-core": "workspace:*"
   },
   "dependencies": {
     "dockerode": "^4.0.8",

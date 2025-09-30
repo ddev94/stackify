@@ -84,18 +84,26 @@ export default defineCommand({
 
     await container.start();
 
+    const image = await docker.pull("playlistduong/stackify-rest:v1", {});
+    await new Promise((resolve, reject) => {
+      docker.modem.followProgress(image, (err, res) =>
+        err ? reject(err) : resolve(res),
+      );
+    });
+
     const whoamiContainer = await docker.createContainer({
-      Image: "stackify/platform",
-      name: "stackify-platform",
+      Image: "playlistduong/stackify-rest:v1",
+      name: "stackify-rest",
       Labels: {
         "traefik.enable": "true",
-        "traefik.http.routers.platform.rule": "Host(`localhost`) && PathPrefix(`/platform`)",
-        "traefik.http.routers.platform.entrypoints": "web",
-        "traefik.http.services.platform.loadbalancer.server.port": "3000",
+        "traefik.http.routers.rest.rule":
+          "PathPrefix(`/rest`)",
+        "traefik.http.routers.rest.entrypoints": "web",
+        "traefik.http.services.rest.loadbalancer.server.port": "3000",
       },
       HostConfig: {
         Binds: ["/var/run/docker.sock:/var/run/docker.sock:rw"],
-      }
+      },
     });
 
     await whoamiContainer.start();
@@ -106,13 +114,13 @@ export default defineCommand({
     // docker exec -it stackify-reverse-proxy sh
     // (Note: traefik image may not have bash, but sh should be available)
     const reserveProxyUrl = `http://localhost:${proxyPort}`;
-    const platformUrl = `http://localhost:${proxyPort}/platform`;
+    const restUrl = `http://localhost:${proxyPort}/rest`;
     consola.box(`
-    Stackify Reverse Proxy is running!
+    Stackify is running!
 
-    - Proxy URL: ${chalk.blue(reserveProxyUrl)}
+    - Reverse Proxy URL: ${chalk.blue(reserveProxyUrl)}
 
-    - You can access the platform at: ${chalk.blue(platformUrl)}
+    - You can access the REST API at: ${chalk.blue(restUrl)}
 
     - To stop the service, run: ${chalk.blue("stackify stop")}
     `);

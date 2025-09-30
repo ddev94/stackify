@@ -1,4 +1,4 @@
-# @stackify/cli
+# stackify-cli
 
 A command-line tool for deploying and managing web applications with Stackify.
 
@@ -6,7 +6,7 @@ A command-line tool for deploying and managing web applications with Stackify.
 - Start and stop the Stackify service on your server
 - Deploy your application to the cloud with a single command
 - Supports custom working directories
-- Integrates with @stackify/core for TypeScript projects
+- Integrates with stackify-core for TypeScript projects
 
 ## Prerequisites
 - Node.js v20 or higher
@@ -14,7 +14,7 @@ A command-line tool for deploying and managing web applications with Stackify.
 
 ## Installation
 ```bash
-npm install -g @stackify/cli
+npm install -g stackify-cli
 ```
 
 ## Usage
@@ -38,7 +38,7 @@ stackify deploy
 
 ## Example stackify.config.ts
 ```typescript
-import { defineStackifyConfig } from "@stackify/core";
+import { defineStackifyConfig } from "stackify-core";
 export default defineStackifyConfig({
   name: "your-app-name",
 });
